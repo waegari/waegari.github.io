@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        논리 </title>
+    <meta charset="UTF-8">
+    <meta name="description" content="논리">
+    <meta name="kewords" content="논리, 명제">
+    <meta name="author" content="waegari">
+    <!-- <base href="https://waegari.github.io/math"> -->
+    <style>
+    </style>
+    <script type="text/javascript" id="MathJax-script" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+            MathJax.Hub.Config({
+                tex2jax: { inlineMath: [['$$', '$$']], displayMath: [['$$$', '$$$']] },
+            });
+        </script>
+</head>
+
+<body>
+
+    <h1>논리 (이산수학) </h1>
+    <ul>
+        <li>
+            <h3>정의 1. 명제</h3>
+            <div><dfn>참과 거짓을 구별할 수 있는 문장이나 수학적 식을 명제라고 한다.</dfn></div>
+        </li>
+        <li>
+            <h3>2.1 합성명제</h3>
+            <div><dfn>하나 이상의 명제(p, q, 논리상수 T, F 등)와 <wbr>논리연산자 (∨, ∧, ~, ⊕ 등), 괄호 ('(', ')')로 이루어진 명제를 합성 명제라고 한다.
+                </dfn></div>
+        </li>
+        <li>
+            <h4>2.1.1 논리합 (disjuction; or, ∨, &#92;vee)</h4>
+            <div><dfn>for propositions <strong>p</strong>, <strong>q</strong>, $$p \vee q$$ is true iff p is true or q
+                    is true.
+                </dfn></div>
+        </li>
+        <li>
+            <h4>2.1.2 논리곱 (conjuction; and, ∧, &#92;wedge)</h4>
+            <div><dfn>for propositions <strong>p</strong>, <strong>q</strong>, $$p \wedge q$$ is true iff p is true and
+                    q is true.
+                </dfn></div>
+        </li>
+        <li>
+            <h4>2.1.3 부정 (negation; not, ~, ￢, &#92;neg)</h4>
+            <div><dfn>for a proposition <strong>p</strong>, $$\neg p$$ is true iff p is not true.
+                </dfn></div>
+        </li>
+        <li>
+            <h4>2.1.4 배타적 논리합 (exclusive or; xor, ⊕, &#92;oplus)</h4>
+            <div><dfn>for propositions <strong>p</strong>, <strong>q</strong>, $$p \oplus q$$ is true iff p is true and
+                    q is not true, or p is not true and q is true.
+                </dfn></div>
+        </li>
+        <li>
+            <h3>2.2.1 조건명제(conditional proposition, →, &#92;rightarrow) </h3>
+            <div><dfn>for propositions <strong>p</strong>, <strong>q</strong>, $$p \rightarrow q$$ is true iff p is
+                    false or q is true.
+                </dfn></div>
+        </li>
+        <li>
+            <h4>2.2.2 쌍조건명제 (↔, &#92;leftrightarrow)</h4>
+            <div><dfn>for propositions <strong>p</strong>, <strong>q</strong>, $$p \leftrightarrow q$$ is true iff both
+                    p and q are true, or both p and q are false.
+                </dfn></div>
+        </li>
+        <li>
+            <h3>2.3.1 역, 이, 대우(converse, inverse, contrapositive) </h3>
+            <div><dfn>
+                    <p>조건명제 $$p \rightarrow q$$에 대해,</p>
+                    역: $$q \rightarrow p$$
+                    이:  $$\neg p \rightarrow \neg q$$
+                    대우: $$\neg q \rightarrow \neg p$$
+                </dfn></div>
+        </li>
+        <!-- \equiv -->
+        <li>
+            <h3>2.3.2 논리적 동치 (logical equivalence) </h3>
+            <div><dfn>
+                    <p> $$p \leftrightarrow q$$인 p, q에 대해,</p>
+                    <p>$$p \Leftrightarrow q,$$</p>
+                    <p>$$p \equiv q$$가 성립하며, 그 역도 성립한다(증명생략).</p>
+                </dfn></div>
+        </li>
+        <li>
+            <h3>2.3.3 논리적 동치 법칙 </h3>
+            <div><dfn>
+                (1) 교환법칙 (commutation law)
+                    $$p \vee q \equiv q \vee p $$
+                    $$p \wedge q \equiv q \wedge p $$
+                    $$p \leftrightarrow q \equiv q \leftrightarrow p $$
+                (2) 교환법칙 (associative law)
+                $$\left( p \vee q \right) \vee r \equiv p \vee \left( q \vee r \right)$$
+                $$\left( p \wedge q \right) \wedge r \equiv p \wedge \left( q \wedge r \right)$$
+                (3) 분배법칙 (distributive law)
+                $$p \vee \left( q \wedge r \right) \equiv \left( p \vee q \right) \wedge \left( p \vee r \right)$$
+                $$p \wedge \left( q \vee r \right) \equiv \left( p \wedge q \right) \vee \left( p \wedge r \right)$$
+                (4) 항등법칙 (identity law)
+                $$p \vee F \equiv p$$
+                $$p \wedge T \equiv p$$
+                (5) 지배법칙 (domination law)
+                $$p \vee T \equiv T$$
+                $$p \wedge F \equiv F$$
+                (6) 부정법칙 (negation law)
+                $$\neg T \equiv F$$
+                $$\neg F \equiv T$$
+                $$p \vee \left( \neg p \right) \equiv T$$
+                $$p \wedge \left( \neg p \right) \equiv F$$
+                </dfn></div>
+        </li>
+    </ul>
+
+</body>
+
+</html>
