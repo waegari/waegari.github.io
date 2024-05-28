@@ -96,9 +96,10 @@
                     if (maxDeltaAccelration<Math.max(deltaX, deltaY, deltaZ)) {
                         document.getElementById('maxA').innerText = `걸음 수: ${Math.max(deltaX, deltaY, deltaZ)}`;
                     }
-                    await sleep(300);
-                    isWalking = false;
-
+                    await sleep(1000).then(()=>{                    
+                        isWalking = false;
+                    });
+                    
                 }
             }
             [lastX, lastY, lastZ] = [x, y, z];
