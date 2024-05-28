@@ -45,7 +45,6 @@
     <h3>(for mobile web)</h3>
     <p id="steps">걸음 수: 0</p>
     <p>threshold: <input id="th" type="number" onchange="onChangeThreshold(this)"></p>
-    <p id="maxA">max a: </p>
     <button id="btn">걸음 수 측정 시작</button>
     <script>
         let steps = 0; // 걸음 수를 저장하는 변수
@@ -54,8 +53,6 @@
         let [lastX, lastY, lastZ] = [null, null, null]; // 마지막 z축 가속도 값을 저장하는 변수
 
         let isWalking = false;
-
-        let maxDeltaAccelration = 0;
 
         function onChangeThreshold(obj) {
             threshold = obj.value;
@@ -93,13 +90,11 @@
 
                     steps++;
                     document.getElementById('steps').innerText = `걸음 수: ${steps}`;
-                    if (maxDeltaAccelration<Math.max(deltaX, deltaY, deltaZ)) {
-                        document.getElementById('maxA').innerText = `걸음 수: ${Math.max(deltaX, deltaY, deltaZ)}`;
-                    }
-                    await sleep(1000).then(()=>{                    
+
+                    await sleep(666).then(()=>{
                         isWalking = false;
                     });
-                    
+
                 }
             }
             [lastX, lastY, lastZ] = [x, y, z];
