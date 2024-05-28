@@ -53,6 +53,8 @@
         let threshold = 2; //TODO: threshold 미세조정 필요
         let [lastX, lastY, lastZ] = [null, null, null]; // 마지막 z축 가속도 값을 저장하는 변수
 
+        let isWalking = false;
+
         let maxDeltaAccelration = 0;
 
         function onChangeThreshold(obj) {
@@ -66,10 +68,15 @@
 
         }
 
+        // ms 단위 딜레이
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
         // 가속도 데이터 처리 함수
-        function handleMotion(event) {
-            if (!isCounting) return; // 측정 중이 아니면 리턴
-            
+        async function handleMotion(event) {
+            if (!isCounting || isWalking) return; // 측정 중이 아니거나 너무 빠르게 신호가 입력되면 리턴
+
             const { accelerationIncludingGravity } = event;
             if (!accelerationIncludingGravity) return; // 가속도 데이터가 없으면 리턴
 
@@ -81,11 +88,17 @@
                 const deltaY = Math.abs(y - lastY);
                 const deltaZ = Math.abs(z - lastZ);
                 if (Math.max(deltaX, deltaY, deltaZ) > threshold) { // 기준값을 넘으면 걸음 수 증가
+                    
+                    isWalking = true;
+
                     steps++;
                     document.getElementById('steps').innerText = `걸음 수: ${steps}`;
                     if (maxDeltaAccelration<Math.max(deltaX, deltaY, deltaZ)) {
                         document.getElementById('maxA').innerText = `걸음 수: ${Math.max(deltaX, deltaY, deltaZ)}`;
                     }
+                    await sleep(300);
+                    isWalking = false;
+
                 }
             }
             [lastX, lastY, lastZ] = [x, y, z];
