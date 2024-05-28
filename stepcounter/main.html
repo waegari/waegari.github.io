@@ -50,7 +50,7 @@
         let steps = 0; // 걸음 수를 저장하는 변수
         let isCounting = false; // 측정 중인지 여부를 저장하는 변수
         let threshold = 2; //TODO: threshold 미세조정 필요
-        let lastZ = null; // 마지막 z축 가속도 값을 저장하는 변수
+        let [lastX, lastY, lastZ] = [null, null, null]; // 마지막 z축 가속도 값을 저장하는 변수
 
         function onChangeThreshold(obj) {
             threshold = obj.value;
@@ -70,15 +70,19 @@
             const { accelerationIncludingGravity } = event;
             if (!accelerationIncludingGravity) return; // 가속도 데이터가 없으면 리턴
 
-            const z = accelerationIncludingGravity.z; // z축 가속도 값
-            if (lastZ !== null) {
-                const deltaZ = Math.abs(z - lastZ); // 이전 z축 값과의 차이 계산
-                if (deltaZ > threshold) { // 기준값을 넘으면 걸음 수 증가
+            const z = accelerationIncludingGravity.z;
+            const y = accelerationIncludingGravity.y;
+            const x = accelerationIncludingGravity.x;
+            if (lastX !== null && lastY !== null && lastZ !== null) {
+                const deltaX = Math.abs(x - lastX);
+                const deltaY = Math.abs(y - lastY);
+                const deltaZ = Math.abs(z - lastZ);
+                if (Math.max(deltaX, deltaY, deltaZ) > threshold) { // 기준값을 넘으면 걸음 수 증가
                     steps++;
                     document.getElementById('steps').innerText = `걸음 수: ${steps}`;
                 }
             }
-            lastZ = z; // 현재 z축 값을 저장
+            [lastX, lastY, lastZ] = [x, y, z];
         }
 
         // "걸음 수 측정 시작" 버튼 클릭 이벤트 처리기
