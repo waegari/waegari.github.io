@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>만보기 for mobile web</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+        }
+        p#steps {
+            font-size: 1.5em;
+            color: #666;
+            margin: 10px 0;
+        }
+        button#btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            color: #fff;
+            background-color: #921144;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button#btn:active {
+            background-color: #b33355;
+        }
+    </style>
+</head>
+<body>
+    <h1>만보기</h1>
+    <h3>(for mobile web)</h3>
+    <p id="steps">걸음 수: 0</p>
+    <button id="btn">걸음 수 측정 시작</button>
+    <script>
+        let steps = 0; // 걸음 수를 저장하는 변수
+        let isCounting = false; // 측정 중인지 여부를 저장하는 변수
+        const threshold = 1.2; //TODO: threshold 미세조정 필요
+        let lastZ = null; // 마지막 z축 가속도 값을 저장하는 변수
+
+        // 가속도 데이터 처리 함수
+        function handleMotion(event) {
+            if (!isCounting) return; // 측정 중이 아니면 리턴
+            
+            const { accelerationIncludingGravity } = event;
+            if (!accelerationIncludingGravity) return; // 가속도 데이터가 없으면 리턴
+
+            const z = accelerationIncludingGravity.z; // z축 가속도 값
+            if (lastZ !== null) {
+                const deltaZ = Math.abs(z - lastZ); // 이전 z축 값과의 차이 계산
+                if (deltaZ > threshold) { // 기준값을 넘으면 걸음 수 증가
+                    steps++;
+                    document.getElementById('steps').innerText = `걸음 수: ${steps}`;
+                }
+            }
+            lastZ = z; // 현재 z축 값을 저장
+        }
+
+        // "걸음 수 측정 시작" 버튼 클릭 이벤트 처리기
+        document.getElementById('btn').addEventListener('click', async () => {
+            if (!isCounting) {
+                // iOS의 경우 모션 센서 사용 권한 요청
+                if (typeof DeviceMotionEvent.requestPermission === 'function') {
+                    const response = await DeviceMotionEvent.requestPermission();
+                    if (response !== 'granted') {
+                        alert('모션 센서 접근 권한이 거부되었습니다');
+                        return;
+                    }
+                }
+                isCounting = true;
+                window.addEventListener('devicemotion', handleMotion); // devicemotion 이벤트 리스너 등록
+            } else {
+                isCounting = false;
+                window.removeEventListener('devicemotion', handleMotion); // devicemotion 이벤트 리스너 제거
+            }
+            document.getElementById('btn').innerText = isCounting? '테스트 종료':'걸음 수 측정 시작';
+        });
+    </script>
+</body>
+</html>
